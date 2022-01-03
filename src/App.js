@@ -2,38 +2,41 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Result from "./Result";
 function App() {
-  // const [appState, setAppState] = useState({
-  //   usdrate: 5,
-  //   kayit: "ithalat",
-  //   tryprice: 0,
-  //   showResult: false,
-  // });
-  const [usdrate, setUsdRate] = useState(0);
-  const [kayit, setKayit] = useState("ithalat");
-  const [tryprice, setTryprice] = useState(0);
-  const [showResult, setShowResult] = useState(false);
+  const [hesap, setHesap] = useState({
+    usdrate: 5,
+    kayit: "ithalat",
+    price: 0,
+    showResult: false,
+  });
   const url = "https://api.exchangerate.host/convert?from=USD&to=TRY";
   const fetchExchangeRate = async () => {
+    console.log("fetching usd try exchange rate");
     const response = await fetch(url);
     const rate = await response.json();
-
-    setUsdRate(rate.info.rate.toFixed(2));
+    setHesap({ ...hesap, usdrate: rate.info.rate.toFixed(2) });
   };
   useEffect(() => {
-    console.log("hello len");
     fetchExchangeRate();
   }, []);
 
+  const handlePriceChange = (e) => {
+    console.log("handling price change");
+    setHesap({ ...hesap, price: e.target.value });
+  };
+
+  const handleRegisterChange = (e) => {
+    console.log("handling register change");
+    setHesap({ ...hesap, kayit: e.target.value });
+  };
   const handleSubmit = (e) => {
-    if (tryprice > 0) {
-      setShowResult(true);
-    }
+    console.log("handlesubmit");
+    setHesap({ ...hesap, showResult: true });
   };
   return (
     <div className="App">
       <header className="App-header">
         <h2>Telefon Vergimatik</h2>
-        <h4>USD - TRY : {usdrate} </h4>
+        <h4>USD - TRY : {hesap.usdrate} </h4>
       </header>
       <main>
         <form>
@@ -41,19 +44,15 @@ function App() {
             Telefon Fiyatı $:
             <input
               type="number"
-              value={tryprice === 0 ? " " : tryprice}
-              onChange={(e) => {
-                setTryprice(e.target.value);
-              }}
+              value={hesap.price === 0 ? " " : hesap.price}
+              onChange={handlePriceChange}
               name="name"
             />
           </label>
           <label htmlFor="kayityolu">Kayıt yolu:</label>
           <select
-            value={kayit}
-            onChange={(e) => {
-              setKayit(e.target.value);
-            }}
+            value={hesap.kayit}
+            onChange={handleRegisterChange}
             id="kayityolu"
             name="kayityolu"
           >
@@ -63,7 +62,9 @@ function App() {
           <input type="button" onClick={handleSubmit} value="Submit" />
         </form>
 
-        {showResult && <Result tryprice={tryprice * usdrate} kayit={kayit} />}
+        {hesap.showResult && (
+          <Result tryprice={hesap.price * hesap.usdrate} kayit={hesap.kayit} />
+        )}
       </main>
     </div>
   );
