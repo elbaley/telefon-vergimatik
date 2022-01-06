@@ -4,23 +4,36 @@ import Result from "./Result";
 function App() {
   const [hesap, setHesap] = useState({
     usdrate: 5,
+    eurrate: 5,
     kayit: "ithalat",
     price: 0,
     showResult: false,
   });
-  const url = "https://api.exchangerate.host/convert?from=USD&to=TRY";
-  const fetchExchangeRate = async () => {
-    console.log("fetching usd try exchange rate");
-    const response = await fetch(url);
-    const rate = await response.json();
-    setHesap({ ...hesap, usdrate: rate.info.rate.toFixed(2) });
-  };
+
   useEffect(() => {
+    const url = "https://api.exchangerate.host/convert?from=USD&to=TRY";
+    const fetchExchangeRate = async () => {
+      console.log("fetching usd try exchange rate");
+      const usdresponse = await fetch(url);
+      const usdrate = await usdresponse.json();
+      const eurresponse = await fetch(
+        "https://api.exchangerate.host/convert?from=EUR&to=TRY"
+      );
+      const eurrate = await eurresponse.json();
+      setHesap((oldHesap) => {
+        let newHesap = { ...oldHesap };
+        newHesap.usdrate = usdrate.info.rate.toFixed(2);
+        newHesap.eurrate = eurrate.info.rate.toFixed(2);
+        return newHesap;
+      });
+    };
     fetchExchangeRate();
   }, []);
 
   const handlePriceChange = (e) => {
     console.log("handling price change");
+    window.scrollTo({ top: 600, left: 0, behavior: "smooth" });
+
     setHesap({ ...hesap, price: e.target.value });
   };
 
@@ -40,30 +53,36 @@ function App() {
       </header>
       <main>
         <form>
-          <label>
-            Telefon Fiyatı $:
+          <div className="form-item">
+            {" "}
+            <label htmlFor="number">Telefon Fiyatı $: </label>
             <input
               type="number"
               value={hesap.price === 0 ? " " : hesap.price}
               onChange={handlePriceChange}
               name="name"
             />
-          </label>
-          <label htmlFor="kayityolu">Kayıt yolu:</label>
-          <select
-            value={hesap.kayit}
-            onChange={handleRegisterChange}
-            id="kayityolu"
-            name="kayityolu"
-          >
-            <option value="ithalat">İthalat kayıtlı</option>
-            <option value="pasaport">Pasaport kayıtlı</option>
-          </select>
-          <input type="button" onClick={handleSubmit} value="Submit" />
+          </div>
+          <div className="form-item">
+            <label htmlFor="kayityolu">Kayıt yolu:</label>
+            <select
+              value={hesap.kayit}
+              onChange={handleRegisterChange}
+              id="kayityolu"
+              name="kayityolu"
+            >
+              <option value="ithalat">İthalat kayıtlı</option>
+              <option value="pasaport">Pasaport kayıtlı</option>
+            </select>
+          </div>
         </form>
-
+        <input type="button" onClick={handleSubmit} value="Hesapla" />
         {hesap.showResult && (
-          <Result tryprice={hesap.price * hesap.usdrate} kayit={hesap.kayit} />
+          <Result
+            tryprice={hesap.price * hesap.usdrate}
+            kayit={hesap.kayit}
+            eurRate={hesap.eurrate}
+          />
         )}
       </main>
     </div>
