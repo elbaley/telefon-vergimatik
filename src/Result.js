@@ -25,7 +25,6 @@ function Result({ tryprice, kayit, eurRate }) {
   return (
     <div>
       <h2>Sonuçlar</h2>
-      {toplamvergioran}
       <div className="result">
         <div className="result-item">
           <table role="grid">
