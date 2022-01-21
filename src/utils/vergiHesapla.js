@@ -4,7 +4,7 @@ const vergiHesapla = (fiyat, kayit, eurrate) => {
     let vergisizfiyat = fiyat;
     let pasaportvergicikler = [
       { id: 0, name: "TRT Bandrol (€20)", miktar: eurrate * 20, oran: 0 },
-      { id: 1, name: "IMEI Kayıt Bedeli", miktar: 2006.2, oran: 0 },
+      { id: 1, name: "IMEI Kayıt Bedeli", miktar: 2732, oran: 0 },
       { id: 2, name: "Toplam Vergi", oran: 0, miktar: 0 },
     ];
     let toplamvergi =
