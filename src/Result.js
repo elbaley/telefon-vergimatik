@@ -1,15 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import vergiHesapla from "./utils/vergiHesapla";
-import denemeResim from "./images/testphone.png";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import vergiHesapla from './utils/vergiHesapla';
+import denemeResim from './images/testphone.png';
 function Result({ tryprice, kayit, eurRate }) {
   // first create state array
   let vergicikler = vergiHesapla(tryprice, kayit, eurRate);
   //then declare the state with the array
   const [vergiler, setVergiler] = useState(vergicikler);
-  console.log("denemelel");
   useEffect(() => {
-    console.log("either price or vergiler changed");
+    console.log('either price or vergiler changed');
     //vergicikler = vergiHesapla(tryprice, vergicikler);
     setVergiler(vergiHesapla(tryprice, kayit, eurRate));
   }, [tryprice, kayit, eurRate]);
@@ -38,17 +37,17 @@ function Result({ tryprice, kayit, eurRate }) {
                   <tr key={vergi.id}>
                     <th
                       className={
-                        vergi.name === "Toplam Vergi" ? "vergi-toplam" : "vergi"
+                        vergi.name === 'Toplam Vergi' ? 'vergi-toplam' : 'vergi'
                       }
                     >
                       {vergi.name}
-                      {vergi.oran !== 0 && "(%" + vergi.oran.toFixed(0) + ")"}
+                      {vergi.oran !== 0 && '(%' + vergi.oran.toFixed(0) + ')'}
                     </th>
                     <td
                       className={
-                        vergi.name === "Toplam Vergi"
-                          ? "vergi-toplam-fiyat"
-                          : "vergi-fiyat"
+                        vergi.name === 'Toplam Vergi'
+                          ? 'vergi-toplam-fiyat'
+                          : 'vergi-fiyat'
                       }
                     >
                       {vergi.miktar.toFixed(0)}₺
@@ -64,7 +63,7 @@ function Result({ tryprice, kayit, eurRate }) {
           </table>
           <p
             style={{
-              textAlign: "start",
+              textAlign: 'start',
             }}
           >
             Asgari ücretle çalışan bir kişi bu telefonu hiç gideri yoksa
@@ -80,29 +79,29 @@ function Result({ tryprice, kayit, eurRate }) {
             />
             <div
               style={{
-                position: "absolute",
-                content: " ",
-                top: "0",
-                left: "0",
-                width: "100%",
-                borderTopLeftRadius: "40px",
-                borderTopRightRadius: "40px",
-                height: toplamvergioran + "%",
-                backgroundColor: "rgba(255,0,0,0.5)",
+                position: 'absolute',
+                content: ' ',
+                top: '0',
+                left: '0',
+                width: '100%',
+                borderTopLeftRadius: '40px',
+                borderTopRightRadius: '40px',
+                height: toplamvergioran + '%',
+                backgroundColor: 'rgba(255,0,0,0.5)',
               }}
             />
             <div
               style={{
-                position: "absolute",
-                content: " ",
-                bottom: "0",
-                left: "0",
-                width: "100%",
+                position: 'absolute',
+                content: ' ',
+                bottom: '0',
+                left: '0',
+                width: '100%',
 
-                borderBottomLeftRadius: "40px",
-                borderBottomRightRadius: "40px",
-                height: vergisizlikorani + "%",
-                backgroundColor: "rgb(16 151 32 / 58%)",
+                borderBottomLeftRadius: '40px',
+                borderBottomRightRadius: '40px',
+                height: vergisizlikorani + '%',
+                backgroundColor: 'rgb(16 151 32 / 58%)',
               }}
             />
           </div>

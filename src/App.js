@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import Result from "./Result";
+import { useEffect, useState } from 'react';
+import './App.css';
+import Result from './Result';
 function App() {
   const [hesap, setHesap] = useState({
     usdrate: 5,
     eurrate: 5,
-    kayit: "ithalat",
+    kayit: 'ithalat',
     price: 0,
     showResult: false,
   });
 
   useEffect(() => {
-    const url = "https://api.exchangerate.host/convert?from=USD&to=TRY";
+    const url = 'https://api.exchangerate.host/convert?from=USD&to=TRY';
     const fetchExchangeRate = async () => {
-      console.log("fetching usd try exchange rate");
+      console.log('fetching usd try exchange rate');
       const usdresponse = await fetch(url);
       const usdrate = await usdresponse.json();
       const eurresponse = await fetch(
-        "https://api.exchangerate.host/convert?from=EUR&to=TRY"
+        'https://api.exchangerate.host/convert?from=EUR&to=TRY'
       );
       const eurrate = await eurresponse.json();
       setHesap((oldHesap) => {
@@ -31,18 +31,21 @@ function App() {
   }, []);
 
   const handlePriceChange = (e) => {
-    console.log("handling price change");
-    window.scrollTo({ top: 600, left: 0, behavior: "smooth" });
-
-    setHesap({ ...hesap, price: e.target.value });
+    console.log('handling price change');
+    if (Number(e.target.value) <= 0) {
+      console.log('bakin 0 geldi');
+      setHesap({ ...hesap, price: e.target.value, showResult: false });
+      return;
+    }
+    setHesap({ ...hesap, price: e.target.value, showResult: true });
   };
 
   const handleRegisterChange = (e) => {
-    console.log("handling register change");
+    console.log('handling register change');
     setHesap({ ...hesap, kayit: e.target.value });
   };
   const handleSubmit = (e) => {
-    console.log("handlesubmit");
+    console.log('handlesubmit');
     setHesap({ ...hesap, showResult: true });
   };
   return (
@@ -54,11 +57,11 @@ function App() {
       <main>
         <form>
           <div className="form-item">
-            {" "}
+            {' '}
             <label htmlFor="number">Telefon Fiyatı $: </label>
             <input
               type="number"
-              value={hesap.price === 0 ? " " : hesap.price}
+              value={hesap.price === 0 ? ' ' : hesap.price}
               onChange={handlePriceChange}
               name="name"
             />
