@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/telefon-vergimatik/static/css/main.3a4ceb4b.css",
-    "main.js": "/telefon-vergimatik/static/js/main.be4a4444.js",
+    "main.js": "/telefon-vergimatik/static/js/main.4f8ae03e.js",
     "static/media/testphone.png": "/telefon-vergimatik/static/media/testphone.2f92dd644416f392921e.png",
     "index.html": "/telefon-vergimatik/index.html",
     "main.3a4ceb4b.css.map": "/telefon-vergimatik/static/css/main.3a4ceb4b.css.map",
-    "main.be4a4444.js.map": "/telefon-vergimatik/static/js/main.be4a4444.js.map"
+    "main.4f8ae03e.js.map": "/telefon-vergimatik/static/js/main.4f8ae03e.js.map"
   },
   "entrypoints": [
     "static/css/main.3a4ceb4b.css",
-    "static/js/main.be4a4444.js"
+    "static/js/main.4f8ae03e.js"
   ]
 }
