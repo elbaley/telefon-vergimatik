@@ -55,7 +55,7 @@ function App() {
 				<form>
 					<div className="form-item">
 						{' '}
-						<label htmlFor="number">Telefon Fiyatı $: </label>
+						<label htmlFor="number">Telefon Fiyatı ($): </label>
 						<input
 							type="number"
 							value={hesap.price === 0 ? ' ' : hesap.price}
